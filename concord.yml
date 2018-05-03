@@ -17,7 +17,7 @@ flows:
           from: no-reply@walmart.com
           to: ${initiator.attributes.mail}
           subject: "Azure Storage Request FAILED - ${txId}"
-          template: "mail.failure.mustache"
+          message: "mail.failure.mustache"
 
 configuration:
   dependencies:
