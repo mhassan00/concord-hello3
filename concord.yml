@@ -28,7 +28,7 @@ configuration:
       port: 25
     
 profiles:
-  prod:
+  default:
     configuration:
       arguments:
         webservice: "azureresourcetracker.azurewebsites.net"
