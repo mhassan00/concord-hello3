@@ -20,6 +20,8 @@ flows:
           template: "mail.failure.mustache"
 
 configuration:
+  dependencies:
+    - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.50.0
   arguments:
     smtpParams:
       host: "smtp-gw1.wal-mart.com"
