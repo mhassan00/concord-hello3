@@ -10,6 +10,7 @@ flows:
           subject: "Azure Storage Request SUCCESS - ${txId}"
           template: "mail.success.mustache"
   onFailure:
+    - log: "in onFailuer!"
     - task: smtp
       in:
         smtp: ${smtpParams}
