@@ -1,6 +1,6 @@
 flows:
   default:
-    - expr: ${myTask.somethingDangerous()}
+    - ${misc.throwBpmnError("boom!")}
     - task: smtp
       in:
         smtp: ${smtpParams}
