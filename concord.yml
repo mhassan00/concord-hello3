@@ -1,6 +1,6 @@
 flows:
   default:
-    - log: ${saproperties}
+    - expr: ${myTask.somethingDangerous()}
     - task: smtp
       in:
         smtp: ${smtpParams}
