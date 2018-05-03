@@ -1,4 +1,40 @@
----
 flows:
   default:
-    - log: "Hello Concord!"
+    - log: ${saproperties}
+    - task: smtp
+      in:
+        smtp: ${smtpParams}
+        mail:
+          from: no-reply@walmart.com
+          to: ${initiator.attributes.mail}
+          subject: "Azure Storage Request SUCCESS - ${txId}"
+          template: "mail.success.mustache"
+  onFailure:
+    - task: smtp
+      in:
+        smtp: ${smtpParams}
+        mail:
+          from: no-reply@walmart.com
+          to: ${initiator.attributes.mail}
+          subject: "Azure Storage Request FAILED - ${txId}"
+          template: "mail.failure.mustache"
+
+configuration:
+  dependencies:
+  - mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:0.63.0
+  - mvn://com.walmartlabs.concord.plugins.basic:http-tasks:0.63.0
+  - mvn://com.walmartlabs.concord.plugins.basic:smtp-tasks:0.63.0
+  - mvn://com.walmartlabs.concord:concord-client:0.63.0
+  arguments:
+    smtpParams:
+      host: "smtp-gw1.wal-mart.com"
+      port: 25
+    
+profiles:
+  prod:
+    configuration:
+      arguments:
+        webservice: "azureresourcetracker.azurewebsites.net"
+        secretsFile: "group_vars/secrets.prod.yml"
+        getTokenFile: "group_vars/getToken.prod"
+    
